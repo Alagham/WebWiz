@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebWiz Quiz</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="quiz-container">
+        <!-- Start Screen -->
+        <div class="start-screen" id="startScreen">
+            <h1 class="app-title">WebWiz</h1>
+            <p class="app-description">
+                Test your knowledge of HTML, CSS, and JavaScript in this fun and interactive quiz.  
+                Can you become the ultimate Web Wizard? 🧙‍♂️
+            </p>
+            <button id="startBtn">Start Quiz</button>
+        </div>
+
+        <!-- Rules -->
+        <div class="rules-screen hide" id="rulesScreen">
+            <h2>Some Rules of this Quiz</h2>
+            <ul>
+                <li>1. You will have only <b>15 seconds</b> per each question.</li>
+                <li>2. Once you select your answer, it can't be undone.</li>
+                <li>3. You can't select any option once time goes off.</li>
+                <li>4. You can't exit from the Quiz while you're playing.</li>
+                <li>5. You'll get points on the basis of your correct answers.</li>
+            </ul>
+            <div class="buttons">
+                <button id="exitBtn">Exit Quiz</button>
+                <button id="continueBtn">Continue</button>
+            </div>
+        </div>
+
+        <!-- Quiz -->
+        <div class="quiz-screen hide" id="quizScreen">
+            <header>
+                <h2>Awesome Quiz Application</h2>
+                <div class="timer">Time Left: <span id="time">15</span>s</div>
+            </header>
+
+            <div class="progress-bar">
+                <div id="progress"></div>
+            </div>
+
+            <div class="question-section">
+                <h3 id="questionText">Question</h3>
+                <ul id="optionsList"></ul>
+            </div>
+
+            <footer>
+                <div id="questionCounter">1 of 50 Questions</div>
+                <button id="nextBtn">Next Quiz</button>
+            </footer>
+        </div>
+
+        <!-- Result Screen -->
+        <div class="result-screen hide" id="resultScreen">
+            <h2>Quiz Completed!</h2>
+            <p id="finalScore">You scored 0 out of 50</p>
+            <div class="buttons">
+                <button id="restartBtn">Restart Quiz</button>
+                <button id="homeBtn">Go to Home</button>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="confettiCanvas"></canvas>
+
+    <script src="script.js"></script>
+</body>
+</html>

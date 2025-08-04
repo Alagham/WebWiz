@@ -1,0 +1,196 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: white; /* Page background is white */
+}
+
+/* Quiz Container */
+.quiz-container {
+    width: 450px;
+    min-height: 500px;
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    position: relative;
+    color: #111; /* Text color blackish */
+    opacity: 0;
+    transform: scale(0.95);
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Fade-in animation for the container */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* App Title & Description */
+.app-title {
+    font-size: 30px;
+    color: gold;
+    font-weight: 700;
+}
+
+.app-description {
+    font-size: 15px;
+    margin: 10px 0 20px;
+    color: #000; /* blackish text */
+}
+
+/* Hide Elements */
+.hide {
+    display: none;
+}
+
+/* Buttons */
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 8px;
+    background: silver;
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background: #d9d9d9;
+    transform: scale(1.05);
+}
+
+/* Question and Options */
+ul {
+    list-style: none;
+    margin: 20px 0;
+}
+
+ul li {
+    background: rgba(255, 255, 255, 0.85);
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+    color: black;
+}
+
+ul li.correct {
+    background: #28a745;
+    color: white;
+}
+
+ul li.wrong {
+    background: #dc3545;
+    color: white;
+}
+
+/* Timer */
+.timer {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+}
+
+/* Footer */
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Result Screen */
+.result-screen {
+    text-align: center;
+}
+
+.result-screen p {
+    font-size: 18px;
+    margin: 15px 0;
+    color: black;
+}
+
+.result-screen .emoji {
+    font-size: 40px;
+    margin: 15px 0;
+    display: inline-block;
+    animation: none; /* Controlled dynamically via JS */
+}
+
+.bounce {
+    animation: bounce 0.8s ease-in-out infinite;
+}
+
+/* Emoji bounce animation */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Result Buttons */
+.result-screen .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Progress Bar */
+.progress-bar {
+    height: 8px;
+    background: #eee; /* Light background to contrast container */
+    border-radius: 5px;
+    margin: 10px 0 15px;
+    overflow: hidden;
+}
+
+#progress {
+    height: 100%;
+    width: 0%;
+    background: gold; /* Matches quiz theme */
+    transition: width 0.3s;
+}
+
+/* Confetti Canvas */
+#confettiCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* Fade for question changes */
+.question-section {
+    opacity: 0;
+    animation: fadeQuestion 0.4s ease-in-out forwards;
+}
+
+@keyframes fadeQuestion {
+    to {
+        opacity: 1;
+    }
+}
