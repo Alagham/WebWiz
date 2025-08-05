@@ -1,4 +1,3 @@
-// DOM Elements
 const startScreen = document.getElementById("startScreen");
 const rulesScreen = document.getElementById("rulesScreen");
 const quizScreen = document.getElementById("quizScreen");
@@ -17,25 +16,15 @@ const questionCounter = document.getElementById("questionCounter");
 const timeDisplay = document.getElementById("time");
 const finalScore = document.getElementById("finalScore");
 const progress = document.getElementById("progress");
-const emojiFeedback = document.getElementById("emojiFeedback");
 
 const confettiCanvas = document.getElementById("confettiCanvas");
 const ctx = confettiCanvas.getContext("2d");
-
-// Sounds
-const heartbeatSound = new Audio("sounds/heartbeat.mp3");
-heartbeatSound.loop = true;
-const reliefSound = new Audio("sounds/relief.mp3");
-const wrongSound = new Audio("sounds/wrong.mp3");
-const thumbsUpSound = new Audio("sounds/thumbs-up.mp3");
-const angrySound = new Audio("sounds/angry.mp3");
 
 let currentQuestion = 0;
 let score = 0;
 let timer;
 let timeLeft = 15;
 
-// 50 QUESTIONS
 const questions = [
     { question: "What does HTML stand for?", options: ["Hyper Text Preprocessor", "Hyper Text Markup Language", "Hyper Text Multiple Language", "Hyper Tool Multi Language"], answer: 1 },
     { question: "Which HTML tag is used to define an internal style sheet?", options: ["<style>", "<css>", "<script>", "<link>"], answer: 0 },
@@ -89,19 +78,16 @@ const questions = [
     { question: "What is the default display value of <div> in CSS?", options: ["inline", "block", "flex", "grid"], answer: 1 }
 ];
 
-// Start Quiz
 startBtn.onclick = () => {
     startScreen.classList.add("hide");
     rulesScreen.classList.remove("hide");
 };
 
-// Exit Quiz
 exitBtn.onclick = () => {
     rulesScreen.classList.add("hide");
     startScreen.classList.remove("hide");
 };
 
-// Continue to Quiz
 continueBtn.onclick = () => {
     rulesScreen.classList.add("hide");
     quizScreen.classList.remove("hide");
@@ -109,7 +95,6 @@ continueBtn.onclick = () => {
     loadQuestion();
 };
 
-// Next Question
 nextBtn.onclick = () => {
     currentQuestion++;
     if (currentQuestion < questions.length) {
@@ -119,9 +104,7 @@ nextBtn.onclick = () => {
     }
 };
 
-// Restart Quiz
 restartBtn.onclick = () => {
-    emojiFeedback.classList.remove("bounce");
     resultScreen.classList.add("hide");
     quizScreen.classList.remove("hide");
     score = 0;
@@ -129,75 +112,55 @@ restartBtn.onclick = () => {
     loadQuestion();
 };
 
-// Home Button
 homeBtn.onclick = () => {
-    emojiFeedback.classList.remove("bounce");
     resultScreen.classList.add("hide");
     startScreen.classList.remove("hide");
     score = 0;
 };
 
-// Shuffle Questions
 function shuffleQuestions() {
     questions.sort(() => Math.random() - 0.5);
     currentQuestion = 0;
 }
 
-// Load Question
 function loadQuestion() {
     clearInterval(timer);
-    heartbeatSound.currentTime = 0;
-    heartbeatSound.play();
     timeLeft = 15;
     timeDisplay.textContent = timeLeft;
     startTimer();
 
     const q = questions[currentQuestion];
-    const questionSection = document.querySelector(".question-section");
-    questionSection.style.opacity = 0;
+    questionText.textContent = q.question;
+    optionsList.innerHTML = "";
 
-    setTimeout(() => {
-        questionText.textContent = q.question;
-        optionsList.innerHTML = "";
+    q.options.forEach((opt, index) => {
+        const li = document.createElement("li");
+        li.textContent = opt;
+        li.onclick = () => checkAnswer(li, index, q.answer);
+        optionsList.appendChild(li);
+    });
 
-        q.options.forEach((opt, index) => {
-            const li = document.createElement("li");
-            li.textContent = opt;
-            li.onclick = () => checkAnswer(li, index, q.answer);
-            optionsList.appendChild(li);
-        });
-
-        questionCounter.textContent = `${currentQuestion + 1} of ${questions.length} Questions`;
-        progress.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
-        questionSection.style.opacity = 1;
-    }, 150);
+    questionCounter.textContent = `${currentQuestion + 1} of ${questions.length} Questions`;
+    progress.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
 }
 
-// Check Answer
 function checkAnswer(selected, index, correct) {
     const allOptions = optionsList.querySelectorAll("li");
     allOptions.forEach(opt => opt.onclick = null);
-
-    heartbeatSound.pause();
 
     if (index === correct) {
         selected.classList.add("correct");
         selected.innerHTML += ' <i class="fas fa-check"></i>';
         score++;
-        reliefSound.currentTime = 0;
-        reliefSound.play();
         launchConfetti();
     } else {
         selected.classList.add("wrong");
         selected.innerHTML += ' <i class="fas fa-times"></i>';
         allOptions[correct].classList.add("correct");
-        wrongSound.currentTime = 0;
-        wrongSound.play();
     }
     clearInterval(timer);
 }
 
-// Timer
 function startTimer() {
     timer = setInterval(() => {
         timeLeft--;
@@ -210,26 +173,12 @@ function startTimer() {
     }, 1000);
 }
 
-// Show Result
 function showResult() {
-    heartbeatSound.pause();
     quizScreen.classList.add("hide");
     resultScreen.classList.remove("hide");
     finalScore.textContent = `You scored ${score} out of ${questions.length}`;
-
-    if (score > 25) {
-        emojiFeedback.textContent = "👍";
-        thumbsUpSound.currentTime = 0;
-        thumbsUpSound.play();
-    } else {
-        emojiFeedback.textContent = "😡";
-        angrySound.currentTime = 0;
-        angrySound.play();
-    }
-    emojiFeedback.classList.add("bounce");
 }
 
-// Confetti Animation
 function launchConfetti() {
     const duration = 1000;
     const end = Date.now() + duration;
