@@ -11,7 +11,10 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: white; /* Page background is white */
+    background-image:url(/assets/quizbg2.png); /* Page background is white */
+    background-repeat: no-repeat;
+    background-size: cover;          /* Stretches image to cover screen */
+    background-position: center;
 }
 
 /* Quiz Container */
@@ -28,6 +31,9 @@ body {
     opacity: 0;
     transform: scale(0.95);
     animation: fadeIn 0.5s ease-out forwards;
+}
+h2{
+    color:rgb(14,163,230) ;
 }
 
 /* Fade-in animation for the container */
@@ -109,7 +115,7 @@ ul li.wrong {
 .timer {
     font-size: 18px;
     font-weight: bold;
-    color: black;
+    color: rgb(14,163,230);
 }
 
 /* Footer */
@@ -135,6 +141,10 @@ footer {
     margin: 15px 0;
     display: inline-block;
     animation: none; /* Controlled dynamically via JS */
+}
+
+#questionCounter{
+    color: #fff;
 }
 
 .bounce {
